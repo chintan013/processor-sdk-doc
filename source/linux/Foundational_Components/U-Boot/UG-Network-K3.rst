@@ -50,7 +50,18 @@ binaries files to be sent over TFTP are listed in the table below.
         - Disable link info Bootmode pin so that ROM can identify the PHY and establishes link with the supported speed and duplex mode.
         - Please note that due to MDIO corruption (Errata i2329), booting over Ethernet is not recommended for production purposes.
 
-.. ifconfig:: CONFIG_part_variant in ('AM64X','AM62X')
+.. ifconfig:: CONFIG_part_variant in ('J722S')
+
+   Build tiboot3.bin using ``j722s_evm_r5_ethboot_defconfig``. Build tispl.bin and u-boot.img using ``j722s_evm_a53_ethboot_defconfig``. For instructions to build the bootloader images please refer to :ref:`Build-U-Boot-label`.
+
+   .. important::
+
+      - Ethernet RGMII boot is supported over RGMII on J722s SoC.
+      - CPSW PHYs should be strapped as per ROM's expectation described in part's TRM.
+      - When the link info Bootmode pin is enabled, this means no auto-negotiation or reading of the Ethernet PHY is needed since the ROM will assume the link is up at 1Gbps, full duplex mode.
+      - Disable link info Bootmode pin so that ROM can identify the PHY and establishes link with the supported speed and duplex mode.
+
+.. ifconfig:: CONFIG_part_variant in ('AM64X','AM62X','J722S')
 
   If using ISC dhcpd an example host entry would look like this:
 
